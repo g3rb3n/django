@@ -18,6 +18,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.text import capfirst
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.conf import settings
 
 UserModel = get_user_model()
 
@@ -257,9 +258,9 @@ class PasswordResetForm(forms.Form):
 
     def save(self, domain_override=None,
              subject_template_name='registration/password_reset_subject.txt',
-             email_template_name='registration/password_reset_email.html',
+             email_template_name='registration/password_reset_email.txt',
              use_https=False, token_generator=default_token_generator,
-             from_email=None, request=None, html_email_template_name=None,
+             from_email=None, request=None, html_email_template_name='registration/password_reset_email.html',
              extra_email_context=None):
         """
         Generates a one-use only link for resetting password and sends to the
@@ -273,6 +274,7 @@ class PasswordResetForm(forms.Form):
                 domain = current_site.domain
             else:
                 site_name = domain = domain_override
+            domain = settings.GET_DOMAIN(request)
             context = {
                 'email': email,
                 'domain': domain,
