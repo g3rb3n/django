@@ -257,10 +257,10 @@ class PasswordResetForm(forms.Form):
         return (u for u in active_users if u.has_usable_password())
 
     def save(self, domain_override=None,
-             subject_template_name='registration/password_reset_subject.txt',
-             email_template_name='registration/password_reset_email.txt',
+             subject_template_name='labels/{}/password_reset_subject.txt'.format(settings.LABEL_SLUG),
+             email_template_name='labels/{}/password_reset_email.txt'.format(settings.LABEL_SLUG),
              use_https=False, token_generator=default_token_generator,
-             from_email=None, request=None, html_email_template_name='registration/password_reset_email.html',
+             from_email=None, request=None, html_email_template_name='labels/{}/password_reset_email.html'.format(settings.LABEL_SLUG),
              extra_email_context=None):
         """
         Generates a one-use only link for resetting password and sends to the
