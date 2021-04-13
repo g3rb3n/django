@@ -423,12 +423,12 @@ class PasswordContextMixin(object):
 
 
 class PasswordResetView(PasswordContextMixin, FormView):
-    email_template_name = 'registration/password_reset_email.html'
+    email_template_name = 'registration/{}/password_reset_email.html'.format(settings.LABEL_SLUG)
     extra_email_context = None
     form_class = PasswordResetForm
     from_email = None
-    html_email_template_name = None
-    subject_template_name = 'registration/password_reset_subject.txt'
+    html_email_template_name = 'registration/{}/password_reset_email.thtml'.format(settings.LABEL_SLUG)
+    subject_template_name = 'registration/{}/password_reset_subject.txt'.format(settings.LABEL_SLUG)
     success_url = reverse_lazy('password_reset_done')
     template_name = 'registration/password_reset_form.html'
     title = _('Password reset')
